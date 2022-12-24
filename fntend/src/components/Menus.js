@@ -14,9 +14,9 @@ function Menus(){
 
     function menu_button_pressed(e){
         if (e.currentTarget.value == "atachistory"){
-            history('/sta');
+            history('/fnt/atcstory/');
         }else if (e.currentTarget.value == "membersstory"){
-            history('/stm');
+            history('/fnt/memstory/');
         }
     }
     
@@ -44,7 +44,7 @@ function Menus(){
                         
                     </Grid>
                     <Grid item xs={2} align="center">
-                        <a href="/account">
+                        <a href="/admin">
                         <SvgIcon color="primary">
                             <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
                         </SvgIcon>
