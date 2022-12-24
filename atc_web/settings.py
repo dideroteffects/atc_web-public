@@ -3,10 +3,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--f$u0_j#+km3-#n4d8q7li(1s+4o3f2raeo$co+9#*%h8qzf4('
 
@@ -25,9 +21,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    ###bck
     'bck_accnt',
+    'django.contrib.sites',
+    'allauth'
+    ###fnt
     'fntend',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,20 +61,30 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'atc_web.wsgi.application'
 
+### Model - default - not djangos but custom
+AUTH_USER_MODEL = 'bck_accnt.User'
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+### Login Authentics
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+### Database
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'atc',
+        'USER': 'root',
+        'PASSWORD': 'ee2718ee',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+### Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,11 +114,12 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+### Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
