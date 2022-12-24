@@ -25,6 +25,12 @@ INSTALLED_APPS = [
     'bck_accnt',
     'django.contrib.sites',
     'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     ###fnt
     'fntend',
 ]
@@ -63,6 +69,9 @@ WSGI_APPLICATION = 'atc_web.wsgi.application'
 
 ### Model - default - not djangos but custom
 AUTH_USER_MODEL = 'bck_accnt.User'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = ('email')
 
 ### Login Authentics
 AUTHENTICATION_BACKENDS = [
