@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     ###bck
     'bck_accnt',
     'django.contrib.sites',
-    'allauth'
+    'allauth',
     ###fnt
     'fntend',
 ]
