@@ -35,8 +35,6 @@ INSTALLED_APPS = [
     'fntend',
 ]
 
-SITE_ID = 1
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -68,10 +66,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'atc_web.wsgi.application'
 
 ### Model - default - not djangos but custom
+SITE_ID = 1
 AUTH_USER_MODEL = 'bck_accnt.User'
+
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = ('email')
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# ACCOUNT_LOGOUT_ON_GET = True
 
 ### Login Authentics
 AUTHENTICATION_BACKENDS = [
