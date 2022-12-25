@@ -71,11 +71,6 @@ WSGI_APPLICATION = 'atc_web.wsgi.application'
 ### Model - default - not djangos but custom
 SITE_ID = 1
 AUTH_USER_MODEL = 'bck_accnt.User'
-
-REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
@@ -96,6 +91,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+REST_USE_JWT = True
+JWT_AUTH = {
+    'JWT_AUTH_COOKIE' : 'my-app-auth',
+    'JWT_AUTH_REFRESH_COOKIE' : 'my-refresh-token',
+    # 'JWT_EXPIRATION_DELTA' : datetime.timedelta(seconds=300),
+}
+
 
 ### Database
 

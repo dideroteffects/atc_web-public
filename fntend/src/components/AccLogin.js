@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import {createBrowserRouter, RouterProvider, useNavigate, Link} from "react-router-dom";
 import {Grid, Button, ButtonGroup, Typography, TextField, FormControl, Input, FormHelperText} from "@material-ui/core";
 
-export default function AccLogin(props){
+export default function AccLogin(){
 
     const [ CliEmail, SetCliEmail ] = useState('')
     const [ CliPW, SetCliPW ] = useState('')
     const [ APIToken, SetAPIToken ] = useState('')
-    // const history = useNavigate()
+    const history = useNavigate()
 
     function email_changed(e){
         SetCliEmail(e.target.value);
@@ -34,7 +34,9 @@ export default function AccLogin(props){
             }else{return response.json()}
         }).then((data)=>{
             SetAPIToken(data.access_token);
-            // history('/fnt/me/');
+            history('/fnt/me',{
+                state: {token:data.access_token},
+            });
         }).catch((err)=>console.log(err))
     }
 
@@ -60,6 +62,7 @@ export default function AccLogin(props){
                 onClick={pw_changed}>SOCIAL LOGIN</Button></Grid>
             <Grid><Button className="acc_button">SIGNIN</Button></Grid>
         </Grid>
+        {APIToken}
     </Grid>
     </div>);
 }

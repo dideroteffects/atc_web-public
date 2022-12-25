@@ -7,8 +7,8 @@ import {Grid, Button, ButtonGroup, Typography, SvgIcon} from "@material-ui/core"
 import StoryAtachi from "./StoryAtachi";
 import StoryMems from "./StoryMems";
 import Acc from "./Acc";
-// import AccLogin from "./AccLogin";
-// import AccLogout from "./AccLogout";
+import AccLogin from "./AccLogin";
+import AccLogout from "./AccLogout";
 
 function Menus(){
     
@@ -79,16 +79,16 @@ const router = createBrowserRouter([
         path: '/fnt/me/',
         element: <Acc />,
         errorElement: <ErrorBoundart />,
-        // children: [
-        //     {
-        //         path:'login',
-        //         element: <AccLogin />,
-        //     },
-        //     {
-        //         path:'logout',
-        //         element: <AccLogout />,
-        //     }
-        // ]
+        
+        
+    },
+    {
+        path:'/fnt/me/login',
+        element: <AccLogin />,
+    },
+    {
+        path:'/fnt/me/logout',
+        element: <AccLogout />,
     }
 ])
 
