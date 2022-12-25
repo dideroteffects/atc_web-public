@@ -5,7 +5,7 @@ export default function App() {
     
     return(
     <div>
-        app.js
+        app.js ----- footer
     </div>
     );
 

@@ -5,4 +5,6 @@ urlpatterns = [
     path('atcstory/', index),
     path('memstory/', index),
     path('me/', account),
+    path('me/login/', account),
+    path('me/logout/', account),
 ]

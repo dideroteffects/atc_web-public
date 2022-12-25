@@ -47,10 +47,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'atc_web.urls'
 
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'fntend','static')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,11 +83,19 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 # ACCOUNT_LOGOUT_ON_GET = True
 
+
+
 ### Login Authentics
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 ### Database
 

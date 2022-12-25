@@ -6,7 +6,9 @@ import {Grid, Button, ButtonGroup, Typography, SvgIcon} from "@material-ui/core"
 
 import StoryAtachi from "./StoryAtachi";
 import StoryMems from "./StoryMems";
-
+import Acc from "./Acc";
+// import AccLogin from "./AccLogin";
+// import AccLogout from "./AccLogout";
 
 function Menus(){
     
@@ -20,9 +22,6 @@ function Menus(){
         }
     }
     
-    function profile_icon_pressed(e){
-        
-    }
     
     return(
         <div style={{padding:10}}>
@@ -44,7 +43,7 @@ function Menus(){
                         
                     </Grid>
                     <Grid item xs={2} align="center">
-                        <a href="/admin">
+                        <a href="/fnt/me/">
                         <SvgIcon color="primary">
                             <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
                         </SvgIcon>
@@ -75,6 +74,21 @@ const router = createBrowserRouter([
                 element: <StoryMems />,
             }
         ]
+    },
+    {
+        path: '/fnt/me/',
+        element: <Acc />,
+        errorElement: <ErrorBoundart />,
+        // children: [
+        //     {
+        //         path:'login',
+        //         element: <AccLogin />,
+        //     },
+        //     {
+        //         path:'logout',
+        //         element: <AccLogout />,
+        //     }
+        // ]
     }
 ])
 
@@ -83,10 +97,6 @@ function ErrorBoundart(){
     console.log(err)
     return <div>Dang</div>
 }
-
-// const rootElement = document.getElementById("router");
-// const root = createRoot(rootElement);
-// root.render(<Homepage />);
 
 ReactDOMClient.createRoot(document.getElementById("router")).render(
     <React.StrictMode><RouterProvider router={router} /></React.StrictMode>
