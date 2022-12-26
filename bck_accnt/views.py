@@ -10,6 +10,8 @@ from rest_framework import viewsets
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    def post(self, request, format=None):
+        pass
 
 class UserSessionCheck(APIView):
     def get(self, request, format=None):

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {createBrowserRouter, RouterProvider, useNavigate, useLocation, Link, Outlet} from "react-router-dom";
+import {createBrowserRouter, useNavigate, useLocation, Link, Outlet} from "react-router-dom";
 import {Grid, Button, ButtonGroup, Typography, TextField, FormControl, Input, FormHelperText, useRadioGroup} from "@material-ui/core";
 import AccLogin from "./AccLogin";
 import AccLogout from "./AccLogout";
-
+// import { useAsync } from "react-async";
 
 
 export default function Acc() {
@@ -23,34 +23,25 @@ export default function Acc() {
             }}).then((data)=>{
                 if(!data){
                     Setusersession('');
+                    
                 }else{
                     Setusersession(data._auth_user_id);
+                    
                 }
             }
         )
         
     })
     
-    // const is_have_token = async()=>{
-        
-    // if(usersession){
-    //     history('/logout')
-    // }else{
-    //     history('/login')
-    // }
-    // }
-    // if(!usersession){
-    //     // Setusersession('');
-    //     history('login');
-    // }else{
-    //     // Setusersession(data._auth_user_id);
-    //     history('logout');
-    // }
-    // is_have_token();
+    if (usersession){
+        history('./logout');
+    }else{
+        history('./login');
+    }
 
     return(
-        // <div></div>
-        <div>{usersession?<AccLogout />:<AccLogin />}</div>
+        <div>
+        </div>
 
     )
 }

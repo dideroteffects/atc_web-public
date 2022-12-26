@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import {createBrowserRouter, RouterProvider, useNavigate, Link} from "react-router-dom";
-import {Grid, Button, ButtonGroup, Typography, TextField, FormControl, Input, FormHelperText} from "@material-ui/core";
+import {createBrowserRouter, useNavigate, Link} from "react-router-dom";
+import {Grid, Button, ButtonGroup, Typography,
+    TextField, FormControl, Input, FormHelperText, Collapse} from "@material-ui/core";
+
 
 export default function AccLogin(){
 
     const [ CliEmail, SetCliEmail ] = useState('')
     const [ CliPW, SetCliPW ] = useState('')
-    const [ APIToken, SetAPIToken ] = useState('')
+    // const [ APIToken, SetAPIToken ] = useState('')
+    const [ ErrLogin, SetErrLogin ] = useState(false)
+    const [ ErrMsg, SetErrMsg ] = useState("check email or password")
     const history = useNavigate()
 
     function email_changed(e){
@@ -30,13 +34,15 @@ export default function AccLogin(){
         }
         fetch('/dj-rest-auth/login/', requestOptions).then((response)=>{
             if(!response.ok){
-                console.log('failed')
+                SetErrLogin(true)
             }else{return response.json()}
         }).then((data)=>{
-            SetAPIToken(data.access_token);
-            history('/fnt',{
-                state: {token:data.access_token},
-            });
+            if(data){
+                // SetAPIToken(data.access_token);
+                history('/fnt',
+                // {state: {token:data.access_token},}
+            )
+            };
         }).catch((err)=>console.log(err))
     }
 
@@ -44,25 +50,48 @@ export default function AccLogin(){
     return (<div>
         <Grid container spacing={1}>
         <Grid item xs={12} align="center">
-            <FormControl>
+            
+            <Collapse in={ErrLogin} severity="error">
+                <Typography color="secondary"
+                    style={{ height: 20 }} size='small'>
+                    {ErrMsg}
+                </Typography>
+            </Collapse>
+            
+        </Grid>
+        <Grid item xs={12} align="center">
+            <FormControl align="center">
+                
                 <TextField id="cli_email" className="acc_text"
-                    label="email" variant="standard" onChange={email_changed} ></TextField>
+                    label="email" 
+                    variant={ErrLogin?"outlined":"standard"}
+                    error={ErrLogin}
+                    onChange={email_changed}
+                    style={{width: 300, margin:5}}
+                    ></TextField>
                 <TextField id="cli_password" className="acc_text"
                     inputProps={{ maxLength: 18 }} type="password"
-                    label="password" variant="standard" onChange={pw_changed}></TextField>
-                <FormHelperText id="login-helper-text">Login to Email.</FormHelperText>
+                    label="password"
+                    variant={ErrLogin?"outlined":"standard"}
+                    error={ErrLogin}
+                    onChange={pw_changed}
+                    style={{width: 300, margin:5, marginBottom:10}}
+                    ></TextField>
+                <FormHelperText id="login-helper-text" style={{textAlign:"center", height:100}}>
+                    Login to Email : email need to '@', <br />password min length is 5,<br />
+                    max length is 18 with alphabets and numbers</FormHelperText>
                 {/* style={{height:100}} size='small' variant="outlined" filled={true} >Login to Email.</FormHelperText> */}
             </FormControl>
         </Grid>
 
         <Grid item xs={12} align="center">
             <Grid><Button className="acc_button"
-                onClick={login_button_pressed}>LOGIN</Button></Grid>
+                onClick={login_button_pressed}
+                >LOGIN</Button></Grid>
             <Grid><Button className="acc_button"
                 onClick={pw_changed}>SOCIAL LOGIN</Button></Grid>
             <Grid><Button className="acc_button">SIGNIN</Button></Grid>
         </Grid>
-        {APIToken}
     </Grid>
     </div>);
 }

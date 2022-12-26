@@ -99,5 +99,7 @@ function ErrorBoundart(){
 }
 
 ReactDOMClient.createRoot(document.getElementById("router")).render(
-    <React.StrictMode><RouterProvider router={router} /></React.StrictMode>
+    <React.StrictMode>
+    <RouterProvider router={router} />
+    </React.StrictMode>
 );
