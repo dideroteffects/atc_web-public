@@ -34,7 +34,7 @@ export default function AccLogin(){
             }else{return response.json()}
         }).then((data)=>{
             SetAPIToken(data.access_token);
-            history('/fnt/me',{
+            history('/fnt',{
                 state: {token:data.access_token},
             });
         }).catch((err)=>console.log(err))

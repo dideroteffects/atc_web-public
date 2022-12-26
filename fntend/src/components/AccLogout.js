@@ -4,6 +4,7 @@ import {Grid, Button, ButtonGroup, Typography, TextField, FormControl, Input, Fo
 
 export default function AccLogout(props){
     
+    const history = useNavigate()
     function logout_button_pressed(e){
         const requestOptions = {
             method: 'POST',
@@ -12,7 +13,15 @@ export default function AccLogout(props){
             },
         };
         fetch('/dj-rest-auth/logout/',requestOptions
-        ).then((response)=>console.log(response)
+        ).then((response)=>{
+            if (response.ok){
+                return response.json()
+            }else{
+            console.log(response)
+            }
+        }
+        ).then((data)=>
+            history('/fnt')
         ).catch((err)=>console.log(err));
     }
 
