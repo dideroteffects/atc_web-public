@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     ###bck
     'bck_accnt',
+    'bck_stry',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
