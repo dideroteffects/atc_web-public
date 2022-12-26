@@ -1,7 +1,7 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOMClient from 'react-dom/client';
 import {createBrowserRouter, Outlet, RouterProvider,
-    useRouteError, useNavigate, Link} from "react-router-dom";
+    useRouteError, useNavigate} from "react-router-dom";
 import {Grid, Button, ButtonGroup, Typography, SvgIcon} from "@material-ui/core";
 
 import StoryAtachi from "./StoryAtachi";
@@ -11,7 +11,22 @@ import AccLogin from "./AccLogin";
 import AccLogout from "./AccLogout";
 
 function Menus(){
-    
+    const [ActiveUser,SetActiveUser] = useState('');
+    // console.log('test');
+    useEffect(()=>{
+        
+        fetch('/dj-rest-auth/user/detail/').then((response)=>
+            {if(response.ok){
+                
+                return response.json();
+                
+            }else{
+                console.log(response)
+            }}
+        ).then((data)=>{
+            SetActiveUser(data.username);
+        })
+    })
     const history = useNavigate();
 
     function menu_button_pressed(e){
@@ -48,6 +63,7 @@ function Menus(){
                             <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
                         </SvgIcon>
                         </a>
+                        <Typography style={{fontSize:9}}>{ActiveUser}</Typography>
                     </Grid>
                 </Grid>
 
@@ -65,6 +81,10 @@ const router = createBrowserRouter([
         element: <Menus />,
         errorElement: <ErrorBoundart />,
         children: [
+            {
+                index: true,
+                element: <StoryAtachi />,
+            },
             {
                 path:'atcstory',
                 element: <StoryAtachi />,
