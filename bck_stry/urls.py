@@ -1,7 +1,7 @@
 from django.urls import path, include
-from .views import temp, NoteView
+from .views import NoteView, NoteCreate
 
 urlpatterns = [
-    path('dhttp', temp),
-    path('generic', NoteView.as_view()),
+    path('list', NoteView.as_view()),
+    path('create', NoteCreate.as_view()),
 ]

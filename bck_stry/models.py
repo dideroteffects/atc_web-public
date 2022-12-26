@@ -18,7 +18,7 @@ class Note(models.Model):
     body = models.CharField(max_length=400, null=False, blank=False)
     heart = models.PositiveIntegerField(null=False, blank=True, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    writer = models.ForeignKey(User, on_delete=models.CASCADE, db_column="id")
+    writer = models.ForeignKey(User, on_delete=models.CASCADE, db_column="userid")
     # remote_addr = models.GenericIPAddressField(blank=True, null=True, verbose_name=_("remote address"))
 
     def __str__(self):

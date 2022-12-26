@@ -6,9 +6,13 @@ from django.http import HttpResponse
 from .models import Note
 from .serializers import NoteSerializer
 
-def temp(request):
-    return HttpResponse('hello')
-
-class NoteView(generics.RetrieveAPIView):
+class NoteView(generics.ListAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+class NoteCreate(generics.CreateAPIView):
+    serializer_class = NoteSerializer
+    pass
+    # def post(self, request, *args, **kwargs):
+    #     cli = request.session
+    #     serializer = self.serializer_class(data=cli)
+    #     return super().post(request, *args, **kwargs)
