@@ -10,6 +10,7 @@ import Acc from "./Acc";
 import AccLogin from "./AccLogin";
 import AccLogout from "./AccLogout";
 import StroyCreate from "./StoryCreate";
+import StroyDetail from "./StoryDetail"
 
 function Menus(){
     const [ActiveUser,SetActiveUser] = useState('');
@@ -97,10 +98,10 @@ const router = createBrowserRouter([
                 path:'memstory/create',
                 element: <StroyCreate />,
             },
-        // {
-        //     path:'/fnt/memstory/detail',
-        //     element: <StroyDetail />,
-        // },
+            {
+                path:'memstory/detail',
+                element: <StroyDetail />,
+            },
         ]
     },
     

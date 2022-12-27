@@ -12,6 +12,20 @@ class NoteView(generics.ListAPIView):
     serializer_class = NoteSerializer
     def get(self, request):
         return Response(NoteSerializer(Note.objects.all(), many=True).data, status=status.HTTP_200_OK)
+    
+class NoteDetail(APIView):
+    
+    def post(self, request, format=None):
+        noteid = request.data.get('id')
+        if noteid!=None:
+            note_result = Note.objects.filter(id = noteid)
+            # print(note_result)
+            if len(note_result)>0:
+                note = note_result[0]
+            else:return Response({'message':'it is not a our code'},status=status.HTTP_403_FORBIDDEN)
+        else:return Response({'message':'fill the code'},status=status.HTTP_400_BAD_REQUEST)
+        return Response(NoteSerializer(note).data, status=status.HTTP_200_OK)
+    
 class NoteCreate(generics.CreateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteCreateSerializer
@@ -37,4 +51,8 @@ class NoteCreate(generics.CreateAPIView):
                 note.save()
                 return Response(NoteCreateSerializer(note).data, status=status.HTTP_200_OK)
         return Response({'message':'you send wrong data please fill title and body'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
+class NoteDelete(generics.DestroyAPIView):
+    pass
+class NoteUpdate(generics.UpdateAPIView):
+    pass

@@ -23,7 +23,7 @@ export default function Acc() {
             }
         )
         
-    })
+    },[])
     
     if (usersession){
         history('./logout');

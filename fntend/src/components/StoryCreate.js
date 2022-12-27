@@ -28,7 +28,7 @@ const StroyCreate = ()=>{
             })
         };
 
-        fetch('/rest-note/create',requestOptions).then((response)=>{
+        fetch('/rest-note/create/',requestOptions).then((response)=>{
                 
                 if(response.ok){
                     return response.json();
@@ -44,7 +44,7 @@ const StroyCreate = ()=>{
                     }else if(response.status == 403){
                         SetErrMsg("could you log in?")
                     }
-                    //console.log(response.status);
+                    console.log(response.status);
                     
                 }
                 

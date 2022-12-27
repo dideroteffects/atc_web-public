@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {json, useLocation, useNavigate} from "react-router-dom";
+import {json, useLocation, useNavigate, Navigate} from "react-router-dom";
 import {Grid, Button, Typography, Box,
     TextField, FormControl, FormHelperText, Collapse, SvgIcon,
     Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
@@ -12,7 +12,7 @@ const StoryMems = ()=>{
     const [StoryList,SetStoryList] = useState([]);
     const [ActiveUserId, SetActiveUserId] = useState('');
     // const [EditPressed, SetEditPressed] = useState(false);
-    // const [EditPressedId,SetEditPressedId] = useState(0);
+    const [SelectDetailId,SetSelectDetailId] = useState(0);
 
     const history = useNavigate();
 
@@ -39,9 +39,7 @@ const StoryMems = ()=>{
     function EditPOP(editpressedid){
         return(
             <Grid container spacing={1} style={{marginRight:80}}>
-                {/* {editpressedid} */}
                 <StoryEditPopup editid={editpressedid} />
-                {/* <StoryEditPopup editid={EditPressedId} /> */}
             </Grid>
         )
         }
@@ -49,6 +47,12 @@ const StoryMems = ()=>{
     function CreateButtonPressed(e){
         
         history('/fnt/memstory/create');
+
+    }
+    function TitleDetailPressed(e){
+        // console.log(e.currentTarget.value);
+        // SetSelectDetailId(e.currentTarget.value);
+        history('/fnt/memstory/detail',{state:{selectdetailid:e.currentTarget.value}});
 
     }
 
@@ -71,7 +75,7 @@ const StoryMems = ()=>{
     
     return(
     <div>
-    
+        
         <Grid container spacing={1}>
             <Grid item xs={12} style={{height:50}} />
             <Grid item xs={12} align="right" style={{marginRight:50}}>
@@ -93,8 +97,8 @@ const StoryMems = ()=>{
                 {StoryList.map((stlst)=>(
                     <TableRow key={stlst.id}>
                         <TableCell><Typography style={{fontSize:12}}>{stlst.id}</Typography></TableCell>
-                        <TableCell><Typography size='small'>
-                            {stlst.title.substr(0,20)}{stlst.title.length>20?' ...':''}</Typography></TableCell>
+                        <TableCell><Button size='small' value={stlst.id} style={{width:100, marginLeft:"auto"}} onClick={TitleDetailPressed} >
+                            {stlst.title.substr(0,20)}{stlst.title.length>20?' ...':''}</Button></TableCell>
                         <TableCell><Typography style={{color:'#959595', fontSize:12}} size='small'>
                             {stlst.body.substr(0,40)}{stlst.body.length>40?' ...':''}</Typography></TableCell>
                         <TableCell><Typography style={{color:'#959595', fontSize:12}} size='small'>
