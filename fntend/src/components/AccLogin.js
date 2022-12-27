@@ -6,12 +6,12 @@ import {Grid, Button, Typography,
 
 export default function AccLogin(){
 
-    const [ CliEmail, SetCliEmail ] = useState('')
-    const [ CliPW, SetCliPW ] = useState('')
+    const [ CliEmail, SetCliEmail ] = useState('');
+    const [ CliPW, SetCliPW ] = useState('');
     // const [ APIToken, SetAPIToken ] = useState('')
-    const [ ErrLogin, SetErrLogin ] = useState(false)
-    const [ ErrMsg, SetErrMsg ] = useState("check email or password")
-    const history = useNavigate()
+    const [ ErrLogin, SetErrLogin ] = useState(false);
+    const ErrMsg = "check email or password";
+    const history = useNavigate();
 
     function email_changed(e){
         SetCliEmail(e.target.value);
@@ -51,7 +51,7 @@ export default function AccLogin(){
         <Grid container spacing={1}>
         <Grid item xs={12} align="center">
             
-            <Collapse in={ErrLogin} severity="error">
+            <Collapse in={ErrLogin} severity="error" >
                 <Typography color="secondary"
                     style={{ height: 20 }} size='small'>
                     {ErrMsg}
@@ -87,10 +87,15 @@ export default function AccLogin(){
         <Grid item xs={12} align="center">
             <Grid><Button className="acc_button"
                 onClick={login_button_pressed}
+                style={{width:300}}
                 >LOGIN</Button></Grid>
             <Grid><Button className="acc_button"
-                onClick={pw_changed}>SOCIAL LOGIN</Button></Grid>
-            <Grid><Button className="acc_button">SIGNIN</Button></Grid>
+                onClick={pw_changed}
+                style={{width:300}}
+                >SOCIAL LOGIN</Button></Grid>
+            <Grid><Button className="acc_button"
+                style={{width:300}}
+                >SIGNIN</Button></Grid>
         </Grid>
     </Grid>
     </div>);

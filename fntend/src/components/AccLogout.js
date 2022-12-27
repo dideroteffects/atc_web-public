@@ -28,7 +28,7 @@ export default function AccLogout(props){
     return (
     <Grid container spacing={1}>
         <Grid item xs={12} align="center">
-            <Button onClick={logout_button_pressed}>LOGOUT</Button>
+            <Button onClick={logout_button_pressed} style={{width:300}}>LOGOUT</Button>
             
         </Grid>
     </Grid>);

@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import ReactDOMClient from 'react-dom/client';
 import {createBrowserRouter, Outlet, RouterProvider,
     useRouteError, useNavigate} from "react-router-dom";
-import {Grid, Button, ButtonGroup, Typography, SvgIcon} from "@material-ui/core";
+import {Grid, Button, Typography, SvgIcon} from "@material-ui/core";
 
 import StoryAtachi from "./StoryAtachi";
 import StoryMems from "./StoryMems";
 import Acc from "./Acc";
 import AccLogin from "./AccLogin";
 import AccLogout from "./AccLogout";
+import StroyCreate from "./StoryCreate";
 
 function Menus(){
     const [ActiveUser,SetActiveUser] = useState('');
-    // console.log('test');
     useEffect(()=>{
         
         fetch('/dj-rest-auth/user/detail/').then((response)=>
@@ -26,7 +26,7 @@ function Menus(){
         ).then((data)=>{
             SetActiveUser(data.username);
         })
-    })
+    },[])
     const history = useNavigate();
 
     function menu_button_pressed(e){
@@ -92,9 +92,18 @@ const router = createBrowserRouter([
             {
                 path:'memstory',
                 element: <StoryMems />,
-            }
+            },
+            {
+                path:'memstory/create',
+                element: <StroyCreate />,
+            },
+        // {
+        //     path:'/fnt/memstory/detail',
+        //     element: <StroyDetail />,
+        // },
         ]
     },
+    
     {
         path: '/fnt/me/',
         element: <Acc />,
@@ -119,7 +128,7 @@ function ErrorBoundart(){
 }
 
 ReactDOMClient.createRoot(document.getElementById("router")).render(
-    <React.StrictMode>
+    // <React.StrictMode>
     <RouterProvider router={router} />
-    </React.StrictMode>
+    // </React.StrictMode>
 );

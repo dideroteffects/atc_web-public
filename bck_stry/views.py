@@ -10,6 +10,8 @@ from .serializers import NoteSerializer, NoteCreateSerializer
 class NoteView(generics.ListAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    def get(self, request):
+        return Response(NoteSerializer(Note.objects.all(), many=True).data, status=status.HTTP_200_OK)
 class NoteCreate(generics.CreateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteCreateSerializer
@@ -17,7 +19,7 @@ class NoteCreate(generics.CreateAPIView):
         return Response(NoteCreateSerializer(Note.objects.all(),many=True).data, status=status.HTTP_200_OK)
     def post(self, request, *args, **kwargs):
         if not self.request.session.exists(self.request.session.session_key):
-            return Response({'message':'please LOGIN'},status=status.HTTP_200_OK)
+            return Response({'message':'please LOGIN'},status=status.HTTP_403_FORBIDDEN)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             title = serializer.data.get('title')
@@ -28,11 +30,11 @@ class NoteCreate(generics.CreateAPIView):
             q.add(Q(title = title),q.AND)
             queryset = Note.objects.filter( q )
             if queryset.exists():
-                return Response({'message':'you write two posts of duplication title'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'message':'you write two posts of duplication title'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
             else:
                 
                 note = Note(writer=writer, title=title, body=body)
                 note.save()
                 return Response(NoteCreateSerializer(note).data, status=status.HTTP_200_OK)
-        return Response({'message':'Bad Request'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message':'you send wrong data please fill title and body'}, status=status.HTTP_400_BAD_REQUEST)
         
