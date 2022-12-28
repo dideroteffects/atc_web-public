@@ -5,7 +5,6 @@ import {Grid, Button, Typography, Box,
     Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
 
 import Popup from 'reactjs-popup';
-import StoryEditPopup from './StoryEditPopup';
 import StoryDelete from "./StoryDelete";
 // import 'reactjs-popup/dist/index.css';
 
@@ -13,6 +12,8 @@ const StoryMems = ()=>{
     const [StoryList,SetStoryList] = useState([]);
     const [ActiveUserId, SetActiveUserId] = useState('');
     const [EditIconId,SetEditIconId] = useState(0);
+    const [DelButton,SetDelButton] = useState(false);
+    const [CancleButton,SetCancleButton] = useState(false);
 
     const history = useNavigate();
 
@@ -34,14 +35,6 @@ const StoryMems = ()=>{
     function EditIconPressed(e){
         SetEditIconId(e.currentTarget.value);
     }
-
-    function EditPOP(){
-        return(
-            <Grid container spacing={1} style={{marginRight:80}}>
-                <StoryEditPopup editiconid={EditIconId} />
-            </Grid>
-        )
-        }
             
     function CreateButtonPressed(e){
         
@@ -52,6 +45,32 @@ const StoryMems = ()=>{
         // console.log(e.currentTarget.value);
         // SetSelectDetailId(e.currentTarget.value);
         history('/fnt/memstory/detail',{state:{selectdetailid:e.currentTarget.value}});
+
+    }
+    function DeleteButtonPressed(e) {
+        console.log();
+        // useEffect(()=>{
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: EditIconId,
+            })
+        }
+
+        fetch(`/rest-note/delete/${EditIconId}`, requestOptions
+        ).then((response) => {
+            if (response.ok) {
+                window.location.replace('/fnt/memstory');
+            } else {
+                console.log(response.status);
+            }
+        }
+        )
+        // },[])
+    };
+
+    function EditButtonPressed(e){
 
     }
 
@@ -106,35 +125,63 @@ const StoryMems = ()=>{
                             {stlst.writer==ActiveUserId?
                             
                             // 눌렀을 때 트리거 버튼 설정 및 팝업 모듈
-                            <Popup
-                            trigger={
-                            <span><Button
-                            onClick={EditIconPressed} value={stlst.id}
-                            >
-                                
-                                {/* 버튼 안 이미지 */}
-                                <SvgIcon>
-                                <path fill="currentColor" d="M18.9 9.2C18.1 10.1 16.6 11 15 11C13.5 11 12.6 10.5 11.8 10.1C11 9.8 10.2 9.3 8.9 9.3C7.7 9.3 6.6 10 6 10.6L5 9.1C5.9 8.2 7.3 7.2 8.9 7.2C10.4 7.2 11.3 7.8 12.1 8.1C12.9 8.4 13.7 9 15 9C16.2 9 17.3 8.2 17.9 7.6L18.9 9.2M19 14.1C18.1 15 16.7 16 15.1 16C13.6 16 12.7 15.5 11.9 15.1C11.1 14.8 10.3 14.2 9 14.2C7.8 14.2 6.7 15 6.1 15.6L5.1 14C6 13.1 7.4 12.1 9 12.1C10.5 12.1 11.4 12.6 12.2 13C13 13.3 13.8 13.8 15.1 13.8C16.3 13.8 17.4 13 18 12.4L19 14.1Z" />
-                                </SvgIcon>
-                            
-                            </Button ></span>}>
+                                <Popup
+                                    trigger={
+                                        <span><Button
+                                            onClick={EditIconPressed} value={stlst.id}
+                                        >
+                                            {/* 버튼 안 이미지 */}
+                                            <SvgIcon>
+                                                <path fill="currentColor" d="M18.9 9.2C18.1 10.1 16.6 11 15 11C13.5 11 12.6 10.5 11.8 10.1C11 9.8 10.2 9.3 8.9 9.3C7.7 9.3 6.6 10 6 10.6L5 9.1C5.9 8.2 7.3 7.2 8.9 7.2C10.4 7.2 11.3 7.8 12.1 8.1C12.9 8.4 13.7 9 15 9C16.2 9 17.3 8.2 17.9 7.6L18.9 9.2M19 14.1C18.1 15 16.7 16 15.1 16C13.6 16 12.7 15.5 11.9 15.1C11.1 14.8 10.3 14.2 9 14.2C7.8 14.2 6.7 15 6.1 15.6L5.1 14C6 13.1 7.4 12.1 9 12.1C10.5 12.1 11.4 12.6 12.2 13C13 13.3 13.8 13.8 15.1 13.8C16.3 13.8 17.4 13 18 12.4L19 14.1Z" />
+                                            </SvgIcon>
+                                        </Button ></span>}>
 
-                                {/* 팝업할 내용 */}
-                                {/* {EditPOP()} */}
-                                {/* <StoryDelete /> */}
-                                <Grid container spacing={1} style={{marginRight:80}}>
-                                    <StoryEditPopup editiconid={EditIconId} />
-                                </Grid>
+                                    {/* 팝업할 내용 */}
+                                    {/* {EditPOP()} */}
+                                    {/* <StoryDelete /> */}
 
-                            </Popup>
-                        :''}</TableCell>
+
+                                    {(close)=>(<span>
+                                        <Grid container spacing={1} align="center"
+                                            style={{ backgroundColor: '#f4f4f4', marginRight:80, borderInline: 10, opacity: 0.9, width: 80 }}>
+                                            <Grid item xs={12}>
+                                                <Button onClick={() => { EditButtonPressed; close(); }}>EDIT</Button></Grid>
+                                            <Grid item xs={12}>
+                                                <Button onClick={() => { SetDelButton(true); close(); }}>DEL</Button>
+
+                                            </Grid>
+                                        </Grid>
+                                    </span>)}
+
+
+                                </Popup>
+
+                                : ''}</TableCell>
 
                     </TableRow>
-                    
+
                 ))}
-                </TableBody>
-                </Table>
-                
+                    </TableBody>
+                    </Table>
+                    <Popup open={DelButton} nested modal>
+                        {(close) => (<span>
+
+                            <Grid>
+                                <Grid container spacing={1} className="modal"
+                                    style={{ backgroundColor: '#f4f4f4', borderInline: 10, opacity: 0.9, width: 400, height: 200 }}>
+                                    <Grid item xs={12} align="center">
+                                        <Typography>ARE YOU SURE DELETE?</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} align="center">
+                                        <Button onClick={DeleteButtonPressed}>DELETE</Button>
+                                        <Button onClick={() => { SetDelButton(false); close(); }}>CANCLE</Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                        </span>)}
+
+                    </Popup>
             </Grid>
             
         </Grid>
