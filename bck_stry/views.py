@@ -15,8 +15,8 @@ class NoteView(generics.ListAPIView):
     
 class NoteDetail(APIView):
     
-    def post(self, request, format=None):
-        noteid = request.data.get('id')
+    def post(self, request, noteid, format=None):
+        # noteid = request.data.get('id')
         if noteid!=None:
             note_result = Note.objects.filter(id = noteid)
             # print(note_result)

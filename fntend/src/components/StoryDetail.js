@@ -20,7 +20,7 @@ const StroyCreate = ()=>{
         })
     };
 
-    fetch('/rest-note/detail',requestOptions).then((response)=>{
+    fetch(`/rest-note/detail/${NoteId}`,requestOptions).then((response)=>{
             
             if(response.ok){
                 return response.json();

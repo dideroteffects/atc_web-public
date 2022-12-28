@@ -101,6 +101,13 @@ const router = createBrowserRouter([
             {
                 path:'memstory/detail',
                 element: <StroyDetail />,
+                errorElement: <ErrorBoundart />,
+                // children:[
+                //     {
+                //         path:'*',
+                //         element: <StroyDetail />,
+                //     }
+                // ]
             },
         ]
     },
