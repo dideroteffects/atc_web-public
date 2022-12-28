@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {createBrowserRouter, RouterProvider, useLocation, useNavigate, Link} from "react-router-dom";
+import {useLocation, useNavigate, Link} from "react-router-dom";
 import {Grid, Button, Typography, TextField, Collapse} from "@material-ui/core";
 
-const StroyCreate = ()=>{
+const StroyDetail = ()=>{
     const [Title, SetTitle] = useState('');
     const [Body, SetBody] = useState('');
 
@@ -49,9 +49,6 @@ const StroyCreate = ()=>{
     return(
         <Grid>
 
-            {/* {Title}
-            {Body} */}
-            {/* {NoteId} */}
             <Grid container spacing={1} align="center">
                 <Grid item xs={12} style={{height:20}} />
                 
@@ -87,4 +84,4 @@ const StroyCreate = ()=>{
     )
 };
 
-export default StroyCreate;
+export default StroyDetail;

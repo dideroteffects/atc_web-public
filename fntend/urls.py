@@ -6,6 +6,8 @@ urlpatterns = [
     path('memstory/', index),
     path('memstory/create/', index),
     path('memstory/detail', index),
+    path('memstory/edit', index),
+    path('memstory/delete', index),
     path('me/', account),
     path('me/login/', account),
     path('me/logout/', account),

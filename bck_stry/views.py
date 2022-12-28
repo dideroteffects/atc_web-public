@@ -16,14 +16,14 @@ class NoteView(generics.ListAPIView):
 class NoteDetail(APIView):
     
     def post(self, request, noteid, format=None):
-        # noteid = request.data.get('id')
+        
         if noteid!=None:
             note_result = Note.objects.filter(id = noteid)
             # print(note_result)
             if len(note_result)>0:
                 note = note_result[0]
-            else:return Response({'message':'it is not a our code'},status=status.HTTP_403_FORBIDDEN)
-        else:return Response({'message':'fill the code'},status=status.HTTP_400_BAD_REQUEST)
+            else:return Response({'message':'it is not valid story id'},status=status.HTTP_403_FORBIDDEN)
+        else:return Response({'message':'fill the story id'},status=status.HTTP_400_BAD_REQUEST)
         return Response(NoteSerializer(note).data, status=status.HTTP_200_OK)
     
 class NoteCreate(generics.CreateAPIView):
