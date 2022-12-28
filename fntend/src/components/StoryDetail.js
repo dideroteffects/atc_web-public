@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {createBrowserRouter, RouterProvider, useLocation, useEffect, useNavigate, Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {createBrowserRouter, RouterProvider, useLocation, useNavigate, Link} from "react-router-dom";
 import {Grid, Button, Typography, TextField, Collapse} from "@material-ui/core";
 
 const StroyCreate = ()=>{
@@ -7,8 +7,11 @@ const StroyCreate = ()=>{
     const [Body, SetBody] = useState('');
 
     const location = useLocation();
-    const NoteId = location.state.selectdetailid;
-
+    const [NoteId,SetNoteId] = useState(1);
+    
+    useEffect(()=>{
+        try{SetNoteId(location.state.selectdetailid)}catch(e){console.log(e)}
+    });
     const requestOptions={
         method:"POST",
         headers:{"Content-Type":"application/json"},
