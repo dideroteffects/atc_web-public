@@ -52,7 +52,17 @@ class NoteCreate(generics.CreateAPIView):
                 return Response(NoteCreateSerializer(note).data, status=status.HTTP_200_OK)
         return Response({'message':'you send wrong data please fill title and body'}, status=status.HTTP_400_BAD_REQUEST)
 
-class NoteDelete(generics.DestroyAPIView):
-    pass
+class NoteDelete(APIView):
+    
+    def post(self, request, noteid, format=None):
+        if noteid!=None:
+            note_result = Note.objects.filter(id = noteid)
+            if len(note_result)>0:
+                note = note_result[0]
+                note.delete()
+            else:return Response({'message':'it is not valid story id'},status=status.HTTP_403_FORBIDDEN)
+        else:return Response({'message':'fill the story id'},status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Message':'success deleted'}, status=status.HTTP_200_OK)
+    
 class NoteUpdate(generics.UpdateAPIView):
     pass

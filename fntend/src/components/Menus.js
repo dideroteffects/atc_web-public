@@ -109,10 +109,11 @@ const router = createBrowserRouter([
                 path:'memstory/edit',
                 element: <StoryEdit />
             },
-            {
-                path:'memstory/delete',
-                element: <StoryDelete />
-            },
+            // {
+            //     path:'memstory/delete',
+            //     element: <StoryDelete />
+            // },
+        
         ]
     },
     
