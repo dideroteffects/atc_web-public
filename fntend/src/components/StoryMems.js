@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {json, useLocation, useNavigate, Navigate} from "react-router-dom";
+import {json, useLocation, useNavigate, Navigate, Link} from "react-router-dom";
 import {Grid, Button, Typography, Box,
     TextField, FormControl, FormHelperText, Collapse, SvgIcon,
     Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
@@ -16,7 +16,7 @@ const StoryMems = ()=>{
     const [CancleButton,SetCancleButton] = useState(false);
 
     const history = useNavigate();
-
+    const [DetailEditHistoty, SetDetailEditHistory] = useState('');
     useEffect(()=>{//액티브유저 세션 및 아이디 가져 옴
         
         fetch('/dj-rest-auth/user/detail/').then((response)=>
@@ -42,9 +42,8 @@ const StoryMems = ()=>{
 
     }
     function TitleDetailPressed(e){
-        // console.log(e.currentTarget.value);
-        // SetSelectDetailId(e.currentTarget.value);
-        history('/fnt/memstory/detail',{state:{selectdetailid:e.currentTarget.value}});
+        const detail_url = '/fnt/memstory/detail';
+        GetSelectNoteIdFromServer(e, detail_url);
 
     }
     function DeleteButtonPressed(e) {
@@ -71,6 +70,43 @@ const StoryMems = ()=>{
     };
 
     function EditButtonPressed(e){
+        const edit_url = '/fnt/memstory/edit';
+        GetSelectNoteIdFromServer(e, edit_url);
+    }
+
+    function GetSelectNoteIdFromServer(e, url){
+        const requestOptions={
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({
+                id: e.currentTarget.value,
+            })
+        };
+
+        fetch(`/rest-note/detail/${e.currentTarget.value}`,requestOptions).then((response)=>{
+                
+            if(response.ok){
+                // console.log(response);
+                return response.json();
+                
+            }else{
+                
+                console.log(response.status);
+                
+            }
+            
+        }
+        ).then((data)=>{
+            if(data){
+                // console.log(data.title);
+                // console.log(data);
+                history(url,{state:data})
+                    
+            };
+        }).catch((err)=>{
+            console.error(err.message);
+            console.log(err.message);
+        },[])
 
     }
 
@@ -87,6 +123,7 @@ const StoryMems = ()=>{
             ).then((data)=>{
                 SetStoryList(data);
             });
+
         },[]
     )
     
@@ -145,7 +182,7 @@ const StoryMems = ()=>{
                                         <Grid container spacing={1} align="center"
                                             style={{ backgroundColor: '#f4f4f4', marginRight:80, borderInline: 10, opacity: 0.9, width: 80 }}>
                                             <Grid item xs={12}>
-                                                <Button onClick={() => { EditButtonPressed; close(); }}>EDIT</Button></Grid>
+                                                <Button onClick={EditButtonPressed} value={stlst.id}>EDIT</Button></Grid>
                                             <Grid item xs={12}>
                                                 <Button onClick={() => { SetDelButton(true); close(); }}>DEL</Button>
 

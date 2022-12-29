@@ -8,42 +8,13 @@ const StroyDetail = ()=>{
 
     const location = useLocation();
     const [NoteId,SetNoteId] = useState(1);
-    
     useEffect(()=>{
-        try{SetNoteId(location.state.selectdetailid)}catch(e){console.log(e)}
+        try{
+            SetNoteId(location.state.id)
+            SetTitle(location.state.title);
+            SetBody(location.state.body);
+        }catch(e){console.log(e)}
     });
-    const requestOptions={
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({
-            id: NoteId,
-        })
-    };
-
-    fetch(`/rest-note/detail/${NoteId}`,requestOptions).then((response)=>{
-            
-            if(response.ok){
-                return response.json();
-                
-            }else{
-                
-                console.log(response.status);
-                
-            }
-            
-        }
-    ).then((data)=>{
-        if(data){
-            // console.log(data)
-            SetTitle(data.title);
-            SetBody(data.body);
-        };
-    }).catch((err)=>{
-        console.error(err.message);
-        console.log(err.message);
-    })
-
-    
 
 
     return(

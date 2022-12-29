@@ -64,5 +64,26 @@ class NoteDelete(APIView):
         else:return Response({'message':'fill the story id'},status=status.HTTP_400_BAD_REQUEST)
         return Response({'Message':'success deleted'}, status=status.HTTP_200_OK)
     
-class NoteUpdate(generics.UpdateAPIView):
-    pass
+class NoteUpdate(APIView):
+    serializer_class = NoteSerializer
+    def get(self, request, *args, **kwargs):
+        return Response(NoteCreateSerializer(Note.objects.all(),many=True).data, status=status.HTTP_200_OK)
+    def post(self, request, noteid, *args, **kwargs):
+        if not self.request.session.exists(self.request.session.session_key):
+            return Response({'message':'please LOGIN'},status=status.HTTP_403_FORBIDDEN)
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            title = serializer.data.get('title')
+            body = serializer.data.get('body')
+            writer = User(id=self.request.session.get('_auth_user_id'))
+            if body=='': return Response({'message':'you send wrong data please fill title and body'}, status=status.HTTP_400_BAD_REQUEST)
+            queryset = Note.objects.filter( id=noteid )
+            if queryset.exists():
+                note = queryset[0]
+                note.title = title
+                note.body = body
+                note.save()
+                return Response(NoteCreateSerializer(note).data, status=status.HTTP_200_OK)
+            else: Response({'message':'you send wrong data please check your edit number'}, status=status.HTTP_400_BAD_REQUEST)
+            
+        return Response({'message':'you send wrong data please fill title and body'}, status=status.HTTP_400_BAD_REQUEST)
