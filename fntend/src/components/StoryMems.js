@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {json, useLocation, useNavigate, Navigate, Link} from "react-router-dom";
 import {Grid, Button, Typography, Box,
     TextField, FormControl, FormHelperText, Collapse, SvgIcon,
     Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
-
 import Popup from 'reactjs-popup';
-import StoryDelete from "./StoryDelete";
-// import 'reactjs-popup/dist/index.css';
+import Clickoutside from "./Clickoutside";
+import { flushSync } from "react-dom";
+
 
 const StoryMems = ()=>{
     const [StoryList,SetStoryList] = useState([]);
     const [ActiveUserId, SetActiveUserId] = useState('');
     const [EditIconId,SetEditIconId] = useState(0);
     const [DelButton,SetDelButton] = useState(false);
-    const [CancleButton,SetCancleButton] = useState(false);
-
     const history = useNavigate();
-    const [DetailEditHistoty, SetDetailEditHistory] = useState('');
+
     useEffect(()=>{//액티브유저 세션 및 아이디 가져 옴
         
         fetch('/dj-rest-auth/user/detail/').then((response)=>
@@ -74,7 +72,7 @@ const StoryMems = ()=>{
         GetSelectNoteIdFromServer(e, edit_url);
     }
 
-    function GetSelectNoteIdFromServer(e, url){
+    function GetSelectNoteIdFromServer(e, url){//Note 혹은 Edit 버튼을 누르면 이동할 때, 디테일 API 서버 불러 옴
         const requestOptions={
             method:"POST",
             headers:{"Content-Type":"application/json"},
@@ -128,6 +126,13 @@ const StoryMems = ()=>{
     )
     
     
+    function CloseDelModal(){
+        // alert("you clicked outside of modal popup");
+        SetDelButton(false);
+    }
+    
+    // useEffect(()=>{console.log("DelButton: "+DelButton)},[DelButton]);
+
     return(
     <div>
         <Grid container spacing={1}>
@@ -136,7 +141,7 @@ const StoryMems = ()=>{
                 <Button color="primary" variant="contained"
                 onClick={CreateButtonPressed}>Create</Button>
             </Grid>
-            <Grid item xs={12} style={{margin:50}}>
+            <Grid item xs={12} style={{margin:0}}>
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -199,28 +204,33 @@ const StoryMems = ()=>{
 
                 ))}
                     </TableBody>
-                    </Table>
-                    <Popup open={DelButton} nested modal>
-                        {(close) => (<span>
+                </Table>
+            </Grid>
+            <Grid item xs={12}>
+                
+                <Popup open={DelButton} nested modal className='popup_modal'>
+                    {(close) => (<span>
 
-                            <Grid>
-                                <Grid container spacing={1} className="modal"
-                                    style={{ backgroundColor: '#f4f4f4', borderInline: 10, opacity: 0.9, width: 400, height: 200 }}>
-                                    <Grid item xs={12} align="center">
-                                        <Typography>ARE YOU SURE DELETE?</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} align="center">
-                                        <Button onClick={DeleteButtonPressed}>DELETE</Button>
-                                        <Button onClick={() => { SetDelButton(false); close(); }}>CANCLE</Button>
-                                    </Grid>
+                        <Grid>
+                            <Clickoutside closemodal = {CloseDelModal} testprop='hello' >
+                            <Grid container spacing={1} className="modal"
+                                style={{ backgroundColor: '#f4f4f4', borderInline: 10, opacity: 0.9, width: 400, height: 200 }}>
+                                <Grid item xs={12} align="center">
+                                    <Typography>ARE YOU SURE DELETE?</Typography>
+                                </Grid>
+                                <Grid item xs={12} align="center">
+                                    <Button onClick={DeleteButtonPressed}>DELETE</Button>
+                                    <Button onClick={() => { SetDelButton(false); close(); }}>CANCLE</Button>
                                 </Grid>
                             </Grid>
+                            </Clickoutside>
+                        </Grid>
 
-                        </span>)}
+                    </span>)}
 
-                    </Popup>
+                </Popup>
+                
             </Grid>
-            
         </Grid>
     </div>
     )

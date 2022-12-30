@@ -5,7 +5,6 @@ import {Grid, Button, Typography, TextField, Collapse} from "@material-ui/core";
 const StroyEdit = ()=>{
     const [Title, SetTitle] = useState('');
     const [Body, SetBody] = useState('');
-    const once = 'once';
     
     const [ErrStory, SetErrStory] = useState(false);
     const [ErrCode, SetErrCode] = useState(0);
@@ -20,15 +19,18 @@ const StroyEdit = ()=>{
             SetNoteId(location.state.id);
             SetTitle(location.state.title);
             SetBody(location.state.body);
+            console.log('Set changed - from state');
         }catch(e){console.log(e)};
     },[NoteId])
 
 
     function title_changed(e){
         SetTitle(e.target.value);
+        console.log('title changed - from client');
     }
     function body_changed(e){
         SetBody(e.target.value);
+        console.log('body changed - from client');
     }
     function UpdatePressed(e){
 
@@ -63,7 +65,7 @@ const StroyEdit = ()=>{
             }
         ).then((data)=>{
             if(data){
-                // console.log(data);
+                console.log("success update - from press update button : data =>"+data);
                 window.location.replace('/fnt/memstory')
             };
         }).catch((err)=>{
@@ -93,7 +95,7 @@ const StroyEdit = ()=>{
                     <TextField id="cli_title" className="stry_text"
                     label="subject" InputLabelProps={{shrink:true}}
                     key={`${Math.floor((Math.random() * 1000))}-min`}
-                    onChange={title_changed}
+                    onBlur={title_changed}
                     error={(ErrCode==405 | (ErrCode==400 & Title==''))?true:false}
 
                     defaultValue={Title}
@@ -108,7 +110,8 @@ const StroyEdit = ()=>{
                 <Grid item xs={12}>
                 <TextField id="cli_body" className="stry_text"
                     label="description" InputLabelProps={{shrink:true}}
-                    onChange={body_changed}
+                    // onChange={body_changed}
+                    onBlur={body_changed}
                     error={ErrCode==400 & Body==''?true:false}
 
                     defaultValue={Body}

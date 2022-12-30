@@ -92,7 +92,7 @@ const StroyCreate = ()=>{
                 <Grid item xs={12}>
                     <TextField id="cli_title" className="stry_text"
                     label="subject" 
-                    onChange={title_changed}
+                    onBlur={title_changed}
                     error={(ErrCode==405 | (ErrCode==400 & Title==''))?true:false}
 
                     variant={(ErrCode==405 | (ErrCode==400 & Title==''))?"outlined":"standard"}
@@ -103,7 +103,7 @@ const StroyCreate = ()=>{
                 <Grid item xs={12}>
                 <TextField id="cli_body" className="stry_text"
                     label="description" 
-                    onChange={body_changed}
+                    onBlur={body_changed}
                     error={ErrCode==400 & Body==''?true:false}
 
                     multiline={true}

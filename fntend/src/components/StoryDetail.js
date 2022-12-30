@@ -16,6 +16,7 @@ const StroyDetail = ()=>{
         }catch(e){console.log(e)}
     });
 
+    
 
     return(
         <Grid>
@@ -26,18 +27,19 @@ const StroyDetail = ()=>{
                 <Grid item xs={12}>
                     <TextField id="cli_title" className="stry_text"
 
-                    placeholder={Title}
+                    defaultValue={Title}
                     inputProps={{ readOnly: true, }}
+                    key={`${Math.floor((Math.random() * 1000))}-min`}
 
                     // variant="standard"
                     xs={ 3 }
-                    style={{width: 500, margin:5}}></TextField>
+                    style={{width: 500, margin:5, }}></TextField>
                     
                 </Grid>
                 <Grid item xs={12}>
                 <TextField id="cli_body" className="stry_text"
 
-                    placeholder={Body}
+                    defaultValue={Body}
                     inputProps={{ readOnly: true, }}
 
                     multiline={true}
