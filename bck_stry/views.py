@@ -75,15 +75,28 @@ class NoteUpdate(APIView):
         if serializer.is_valid():
             title = serializer.data.get('title')
             body = serializer.data.get('body')
+            heart = serializer.data.get('heart')
             writer = User(id=self.request.session.get('_auth_user_id'))
             if body=='': return Response({'message':'you send wrong data please fill title and body'}, status=status.HTTP_400_BAD_REQUEST)
-            queryset = Note.objects.filter( id=noteid )
-            if queryset.exists():
-                note = queryset[0]
-                note.title = title
-                note.body = body
-                note.save()
-                return Response(NoteCreateSerializer(note).data, status=status.HTTP_200_OK)
-            else: Response({'message':'you send wrong data please check your edit number'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            if heart==None:
+                
+                queryset = Note.objects.filter( id=noteid )
+                if queryset.exists():
+                    note = queryset[0]
+                    note.title = title
+                    note.body = body
+                    note.save()
+                    return Response(NoteCreateSerializer(note).data, status=status.HTTP_200_OK)
+                else: Response({'message':'you send wrong data please check your edit number'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            else:
+                queryset = Note.objects.filter( id=noteid )
+                if queryset.exists():
+                    note = queryset[0]
+                    note.heart += 1
+                    note.save()
+                    return Response(NoteCreateSerializer(note).data, status=status.HTTP_200_OK)
+                else: Response({'message':'you send wrong data please check your edit number'}, status=status.HTTP_400_BAD_REQUEST)
             
         return Response({'message':'you send wrong data please fill title and body'}, status=status.HTTP_400_BAD_REQUEST)
