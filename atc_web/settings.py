@@ -71,11 +71,12 @@ WSGI_APPLICATION = 'atc_web.wsgi.application'
 
 ### Model - default - not djangos but custom
 SITE_ID = 1
-AUTH_USER_MODEL = 'bck_accnt.User'
+AUTH_USER_MODEL = 'bck_accnt.User'#
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False#
+ACCOUNT_EMAIL_REQUIRED = True#
+ACCOUNT_UNIQUE_EMAIL = True##
+ACCOUNT_AUTHENTICATION_METHOD = 'email'#
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 # ACCOUNT_LOGOUT_ON_GET = True
 
@@ -98,6 +99,14 @@ JWT_AUTH = {
     'JWT_AUTH_COOKIE' : 'my-app-auth',
     'JWT_AUTH_REFRESH_COOKIE' : 'my-refresh-token',
     # 'JWT_EXPIRATION_DELTA' : datetime.timedelta(seconds=300),
+}
+
+REST_AUTH_SERIALIZERS = {
+    'USER_SERIALIZER':'bck_accnt.serializers.UserSerializer'
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'RESGISTER_SERIALIZER':'bck_accnt.serializers.UserRegisterSerializer'
 }
 
 
