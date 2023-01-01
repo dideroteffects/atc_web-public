@@ -94,8 +94,8 @@ export default function AccLogin(){
                 style={{width:300}}
                 >SOCIAL LOGIN</Button></Grid>
             <Grid><Button className="acc_button"
-                style={{width:300}}
-                >SIGNIN</Button></Grid>
+                style={{width:300}} onClick={()=>{history('/fnt/me/signup')}}
+                >SIGN UP</Button></Grid>
         </Grid>
     </Grid>
     </div>);

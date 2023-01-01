@@ -13,6 +13,7 @@ import StroyCreate from "./StoryCreate";
 import StroyDetail from "./StoryDetail";
 import StoryEdit from "./StoryEdit";
 import StoryDelete from "./StoryDelete";
+import AccSignUp from "./AccSignUp";
 
 function Menus(){
     const [ActiveUser,SetActiveUser] = useState('');
@@ -131,7 +132,11 @@ const router = createBrowserRouter([
     {
         path:'/fnt/me/logout',
         element: <AccLogout />,
-    }
+    },
+    {
+        path:'/fnt/me/signup',
+        element: <AccSignUp />,
+    },
 ])
 
 function ErrorBoundart(){
