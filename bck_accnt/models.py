@@ -8,7 +8,7 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     job = models.CharField(max_length=30, blank=True, null=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username','job']
     
     objects = UserManager()
     

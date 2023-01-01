@@ -12,7 +12,7 @@ class UserRegisterSerializer(RegisterSerializer):
     # is_staff = serializers.BooleanField(default=False)
     def get_cleaned_data(self):
         data_dict = super().get_cleaned_data()
-        data_dict['job'] = self.validated_data.get('job')
+        data_dict['job'] = self.validated_data.get('job','')
         return data_dict
 
 
