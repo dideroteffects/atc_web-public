@@ -7,8 +7,8 @@ class User(AbstractUser):
     username = models.CharField(max_length=20, unique=True, blank=True, null=False)
     email = models.EmailField(_('email address'), unique=True)
     
-    # USERNAME_FIELD = 'nickname'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
     
     objects = UserManager()
     
