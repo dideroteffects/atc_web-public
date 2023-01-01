@@ -25,12 +25,15 @@ INSTALLED_APPS = [
     'bck_accnt',
     'bck_stry',
     'django.contrib.sites',
+    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    
     'dj_rest_auth.registration',
     ###fnt
     'fntend',
@@ -78,6 +81,7 @@ ACCOUNT_EMAIL_REQUIRED = True#
 ACCOUNT_UNIQUE_EMAIL = True##
 ACCOUNT_AUTHENTICATION_METHOD = 'email'#
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_ADAPTER = 'bck_accnt.adapters.CustomAccountAdapter'
 # ACCOUNT_LOGOUT_ON_GET = True
 
 
@@ -102,7 +106,7 @@ JWT_AUTH = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'USER_SERIALIZER':'bck_accnt.serializers.UserSerializer'
+    'USER_DETAIL_SERIALIZER':'bck_accnt.serializers.UserSerializer'
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
