@@ -8,12 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class UserRegisterSerializer(RegisterSerializer):
-    username = serializers.CharField(max_length=20)
+    name = serializers.CharField(max_length=20)
     job = serializers.CharField(max_length=20)
-    # is_staff = serializers.BooleanField(default=False)
     def get_cleaned_data(self):
         data_dict = super().get_cleaned_data()
-        data_dict['username'] = self.validated_data.get('username','')
+        data_dict['name'] = self.validated_data.get('name','')
         data_dict['job'] = self.validated_data.get('job','')
         return data_dict
 
