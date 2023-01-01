@@ -106,11 +106,11 @@ JWT_AUTH = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAIL_SERIALIZER':'bck_accnt.serializers.UserSerializer'
+    'USER_DETAILS_SERIALIZER':'bck_accnt.serializers.UserSerializer'
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'RESGISTER_SERIALIZER':'bck_accnt.serializers.UserRegisterSerializer'
+    'REGISTER_SERIALIZER':'bck_accnt.serializers.UserRegisterSerializer'
 }
 
 
