@@ -121,8 +121,30 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER':'bck_accnt.serializers.UserRegisterSerializer'
 }
 
+###Socail Login
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = "517849651914-g0asegaq5h4cqap523fjsnlio19a17pj.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_SECRET = "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"
+
 
 ### Database => screts.json
+DATABASES = {
+
+    "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / 'db.sqlite3'
+        }
+        
+    }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "",
+#         "USER": "root",
+#         "PASSWORD": "",
+#         "HOST": "localhost",
+#         "PORT": "3306"
+#     }
+# }
 
 ### Password validation
 

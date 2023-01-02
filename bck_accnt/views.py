@@ -41,11 +41,18 @@ class UserSessionCheck(APIView):
             return Response({'message':"User doesn't have session"},status=status.HTTP_200_OK)
         
 
-def google_login(request):
-    pass
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
+
+class google_login(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = 'http://127.0.0.1:8000/dj-rest-auth/google/callback'
+    client_class = OAuth2Client
 
 def google_callback(request):
     pass
+ 
 
 def google_login_success(request):
     pass

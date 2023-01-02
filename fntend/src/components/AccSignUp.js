@@ -174,7 +174,7 @@ export default function AccSignUp(){
             <Grid><Button className="acc_button"
                 onClick={signup_button_pressed}
                 style={{width:300}}
-                >SIGNUP</Button></Grid>
+                >SIGNUP → </Button></Grid>
             {/* <Grid><Button className="acc_button"
                 onClick={pw_changed}
                 style={{width:300}}
