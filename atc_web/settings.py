@@ -105,6 +105,14 @@ JWT_AUTH = {
     # 'JWT_EXPIRATION_DELTA' : datetime.timedelta(seconds=300),
 }
 
+# from datetime import timedelta
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+#     'ROTATE_REFRESH_TOKENS': False,
+#     'BLACKLIST_AFTER_ROTATION': True,
+# }
+
 # REST_AUTH_SERIALIZERS = {
 #     'USER_DETAILS_SERIALIZER':'bck_accnt.serializers.UserSerializer'
 # }

@@ -39,3 +39,13 @@ class UserSessionCheck(APIView):
             return Response(data=data,status=status.HTTP_200_OK)
         else:
             return Response({'message':"User doesn't have session"},status=status.HTTP_200_OK)
+        
+
+def google_login(request):
+    pass
+
+def google_callback(request):
+    pass
+
+def google_login_success(request):
+    pass
