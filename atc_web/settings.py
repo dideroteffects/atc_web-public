@@ -122,8 +122,6 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 }
 
 ###Socail Login
-SOCIAL_AUTH_GOOGLE_CLIENT_ID = "517849651914-g0asegaq5h4cqap523fjsnlio19a17pj.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_SECRET = "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"
 
 
 ### Database => screts.json
